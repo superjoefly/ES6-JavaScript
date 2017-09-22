@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Array Helpers</title>
+    <link rel="stylesheet" href="css/prism.css" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+
+    <h1>Array Helpers Methods</h1>
+
+    <p>Array helper methods include <b>forEach, map, filter, find, every, some and reduce</b>.</p>
+
+    <h2>forEach Helper</h2>
+
+    <p>Any array has access to the forEach helper method. We pass an anonymous iterator function to the forEach method, which is then 'called' one time for each item in the array:</p>
+
+    <script>
+      var colors = ['red', 'blue', 'green'];
+
+      colors.forEach(function(color) {
+        console.log(color); // => red blue green
+      });
+    </script>
+
+    <pre><code class="language-js">
+      var colors = ['red', 'blue', 'green'];
+
+      colors.forEach(function(color) {
+        console.log(color); // => red blue green
+      });
+    </code></pre>
+
+    <p>Print the sum of the numbers in the array:</p>
+
+    <script>
+      var numbers = [1, 2, 3, 4, 5];
+
+      var sum = 0;
+
+      numbers.forEach(function(number) {
+        sum += number;
+      });
+
+      console.log(sum); // => 15
+    </script>
+
+    <pre><code class="language-js">
+      var numbers = [1, 2, 3, 4, 5];
+
+      var sum = 0;
+
+      numbers.forEach(function(number) {
+        sum += number;
+      });
+
+      console.log(sum); // => 15
+    </code></pre>
+
+    <p>We can also define the iterator function seperately and pass it to the forEach loop:</p>
+
+    <script>
+      var newNums = [6, 7, 8, 9, 10];
+
+      var newSum = 0;
+
+      function addNumbers(number) {
+        newSum += number;
+      };
+
+      newNums.forEach(addNumbers);
+
+      console.log(newSum); // => 40
+    </script>
+
+    <pre><code class="language-js">
+      var newNums = [6, 7, 8, 9, 10];
+
+      var newSum = 0;
+
+      function addNumbers(number) {
+        newSum += number;
+      };
+
+      newNums.forEach(addNumbers);
+
+      console.log(newSum); // => 40
+    </code></pre>
+
+    <p>Using forEach loops reduces the amount of code we have to write:</p>
+
+    <script>
+    // Convert forLoop to forEach loop:
+
+    function handlePosts() {
+      var posts = [
+        {id: 23, title: 'Daily News'},
+        {id: 38, title: 'Testing, testing'},
+        {id: 55, title: 'Where is my JS?'}
+      ]
+
+      // forLoop
+      for(var i = 0; i < posts.length; i++) {
+        console.log(posts[i]);
+      }
+
+      // forEach loop
+      posts.forEach(function(post) {
+        console.log(post);
+      });
+    }
+
+    handlePosts();
+    </script>
+
+    <pre><code class="language-js">
+      // Convert forLoop to forEach loop:
+
+      function handlePosts() {
+        var posts = [
+          {id: 23, title: 'Daily News'},
+          {id: 38, title: 'Testing, testing'},
+          {id: 55, title: 'Where is my JS?'}
+        ]
+
+        // forLoop
+        for(var i = 0; i < posts.length; i++) {
+          console.log(posts[i]);
+        }
+
+        // forEach loop
+        posts.forEach(function(post) {
+          console.log(post);
+        });
+      }
+
+      handlePosts();
+    </code></pre>
+
+    <p>Processing values using forEach loop:</p>
+
+    <script>
+      var images = [
+        {height: 20, width: 30},
+        {height: 30, width: 40},
+        {height: 40, width: 50},
+      ]
+
+      var areas = [];
+
+      images.forEach(function(image) {
+        areas.push(image.height * image.width);
+      });
+
+      console.log(areas); // => [600, 1200, 2000]
+    </script>
+
+    <pre><code class="language-js">
+      var images = [
+        {height: 20, width: 30},
+        {height: 30, width: 40},
+        {height: 40, width: 50},
+      ]
+
+      var areas = [];
+
+      images.forEach(function(image) {
+        areas.push(image.height * image.width);
+      });
+
+      console.log(areas); // => [600, 1200, 2000]
+    </code></pre>
+
+    <h2>Map Helper</h2>
+
+    <p>The map helper creates a new array with the result of calling a function for every element in the array:</p>
+
+    <script>
+      var numbers = [3, 5, 7];
+
+      var newNumbs = numbers.map(function(number) {
+        return number + 3;
+      });
+
+      console.log(newNumbs); // => [6, 8, 10]
+    </script>
+
+    <pre><code class="language-js">
+      var numbers = [3, 5, 7];
+
+      var newNumbs = numbers.map(function(number) {
+        return number + 3;
+      });
+
+      console.log(newNumbs); // => [6, 8, 10]
+    </code></pre>
+
+    <p>Access properties of object in an array using map:</p>
+
+    <script>
+      var cars = [
+        {model: 'Ford', year: 1999},
+        {model: 'Toyota', year: 1979},
+        {model: 'Honda', year: 1988}
+      ]
+
+      var years = cars.map(function(car) {
+        return car.year;
+      });
+
+      var models = cars.map(function(car) {
+        return car.model;
+      });
+
+      console.log(years); // => [1999, 1979, 1988]
+
+      console.log(models); // => ["Ford", "Toyota", "Honda"]
+    </script>
+
+    <pre><code class="language-js">
+      var cars = [
+        {model: 'Ford', year: 1999},
+        {model: 'Toyota', year: 1979},
+        {model: 'Honda', year: 1988}
+      ]
+
+      var years = cars.map(function(car) {
+        return car.year;
+      });
+
+      var models = cars.map(function(car) {
+        return car.model;
+      });
+
+      console.log(years); // => [1999, 1979, 1988]
+
+      console.log(models); // => ["Ford", "Toyota", "Honda"]
+    </code></pre>
+
+    <p>Calculate value using map:</p>
+
+    <script>
+      var trips = [
+        {distance: 34, time: 10},
+        {distance: 80, time: 20},
+        {distance: 20, time: 8}
+      ]
+
+      var speeds = trips.map(function(trip) {
+        return trip.distance / trip.time;
+      });
+
+      console.log(speeds); // => [3.4, 4, 2.5]
+    </script>
+
+    <pre><code class="language-js">
+      var trips = [
+        {distance: 34, time: 10},
+        {distance: 80, time: 20},
+        {distance: 20, time: 8}
+      ]
+
+      var speeds = trips.map(function(trip) {
+        return trip.distance / trip.time;
+      });
+
+      console.log(speeds); // => [3.4, 4, 2.5]
+    </code></pre>
+
+    <p>Create function to 'pluck' properties on the array using map:</p>
+
+    <script>
+      var paints = [
+        {color: 'red'},
+        {color: 'green'},
+        {color: 'blue'},
+      ]
+
+      function pluck(array, property) {
+        return array.map(function(item) {
+          console.log(item[property]);
+        });
+      };
+
+      pluck(paints, 'color'); // => red green blue
+    </script>
+
+    <pre><code class="language-js">
+      var paints = [
+        {color: 'red'},
+        {color: 'green'},
+        {color: 'blue'},
+      ]
+
+      function pluck(array, property) {
+        return array.map(function(item) {
+          console.log(item[property]);
+        });
+      };
+
+      pluck(paints, 'color'); // => red green blue
+    </code></pre>
+
+    <h2>Filter Helper</h2>
+
+    <p>We can use the filter array helper to filter out particular items in an array:</p>
+
+    <script>
+    var products = [
+    {name: 'orange', type: 'fruit'},
+    {name: 'The Secret', type: 'book'},
+    {name: 'apple', type: 'fruit'},
+    {name: 'race-car', type: 'toy'}
+    ]
+
+    var filteredProducts = [];
+
+    products.filter(function(product) {
+      if (product.type === 'fruit') {
+        filteredProducts.push(product.name);
+      }
+    });
+
+    console.log(filteredProducts); // => ["orange", "apple"]
+    </script>
+
+    <pre><code class="language-js">
+      var products = [
+      {name: 'orange', type: 'fruit'},
+      {name: 'The Secret', type: 'book'},
+      {name: 'apple', type: 'fruit'},
+      {name: 'race-car', type: 'toy'}
+      ]
+
+      var filteredProducts = [];
+
+      products.filter(function(product) {
+        if (product.type === 'fruit') {
+          filteredProducts.push(product.name);
+        }
+      });
+
+      console.log(filteredProducts); // => ["orange", "apple"]
+    </code></pre>
+
+    <p>Filter based on multiple parameters:</p>
+
+    <script>
+    var products = [
+    {name: 'orange', type: 'fruit', quantity: 3, price: 1},
+    {name: 'The Secret', type: 'book', quantity: 2, price: 5},
+    {name: 'race-car', type: 'toy', quantity: 10, price: 2},
+    {name: 'play-dough', type: 'toy', quantity: 2, price: 3},
+    {name: 'fidget-spinner', type: 'toy', quantity: 5, price: 3}
+    ]
+
+    // Filter only the items that are toys, and quantity is greater than or equal to 5
+
+    var filteredProducts = [];
+
+    products.filter(function(product) {
+      if (product.type === 'toy' && product.quantity >= 5) {
+        filteredProducts.push(product.name);
+      }
+    });
+
+    console.log(filteredProducts); // => ["race-car", "fidget-spinner"]
+    </script>
+
+    <pre><code class="language-js">
+      var products = [
+      {name: 'orange', type: 'fruit', quantity: 3, price: 1},
+      {name: 'The Secret', type: 'book', quantity: 2, price: 5},
+      {name: 'race-car', type: 'toy', quantity: 10, price: 2},
+      {name: 'play-dough', type: 'toy', quantity: 2, price: 3},
+      {name: 'fidget-spinner', type: 'toy', quantity: 5, price: 3}
+      ]
+
+      // Filter only the items that are toys, and quantity is greater than or equal to 5
+
+      var filteredProducts = [];
+
+      products.filter(function(product) {
+        if (product.type === 'toy' && product.quantity >= 5) {
+          filteredProducts.push(product.name);
+        }
+      });
+
+      console.log(filteredProducts); // => ["race-car", "fidget-spinner"]
+    </code></pre>
+
+    <p>Create a function that only returns comments that are associated with (by id) the 'New Post':</p>
+
+    <script>
+    var posts = [
+      {id: 4, content: 'Great Post'},
+      {id: 3, content: 'Boring Post'},
+      {id: 4, content: 'Wow!'}
+    ]
+
+    function getComments() {
+      posts.filter(function(post) {
+        if (post.id === 4) {
+          console.log(post.content);
+        }
+      })
+    }
+
+    getComments(); // => Great Post! Wow!
+    </script>
+
+    <pre><code class="language-js">
+      var posts = [
+        {id: 4, content: 'Great Post'},
+        {id: 3, content: 'Boring Post'},
+        {id: 4, content: 'Wow!'}
+      ]
+
+      function getComments() {
+        posts.filter(function(post) {
+          if (post.id === 4) {
+            console.log(post.content);
+          }
+        })
+      }
+
+      getComments(); // => Great Post! Wow!
+    </code></pre>
+
+    <p>Handle Permissions with Filter:</p>
+
+    <script>
+      var users = [
+        {id: 1, admin: true},
+        {id: 2, admin: false},
+        {id: 3, admin: false},
+        {id: 4, admin: false},
+        {id: 5, admin: false}
+      ]
+
+      var admins = users.filter(function(user) {
+          if (user.admin === true) {
+            console.log ('User with id ' + user.id + ' is admin.');
+          } // => User with id 1 is admin
+        });
+    </script>
+
+    <pre><code class="language-js">
+      var users = [
+        {id: 1, admin: true},
+        {id: 2, admin: false},
+        {id: 3, admin: false},
+        {id: 4, admin: false},
+        {id: 5, admin: false}
+      ]
+
+      var admins = users.filter(function(user) {
+          if (user.admin === true) {
+            console.log ('User with id ' + user.id + ' is admin.');
+          } // => User with id 1 is admin
+        });
+    </code></pre>
+
+    <h2>Find Helper</h2>
+
+    <p>We can use the find helper to loop through an array and return a specific item in the array:</p>
+
+    <script>
+      var users = [
+        {name: 'John'},
+        {name: 'Bill', id: 1},
+        {name: 'Jack'},
+        {name: 'Bill', id: 5}
+      ]
+
+      var user = users.find(function(user) {
+        return user.name === 'Bill';
+      });
+
+      // Note: only the first instance that returns true will be returned
+
+      console.log(user); // => {name: "Bill", id: 1}
+    </script>
+
+    <pre><code class="language-js">
+      var users = [
+        {name: 'John'},
+        {name: 'Bill', id: 1},
+        {name: 'Jack'},
+        {name: 'Bill', id: 5}
+      ]
+
+      var user = users.find(function(user) {
+        return user.name === 'Bill';
+      });
+
+      // Note: only the first instance that returns true will be returned
+
+      console.log(user); // => {name: "Bill", id: 1}
+    </code></pre>
+
+    <p>Find helper using constructor function:</p>
+
+    <script>
+      function Car(model) {
+        this.model = model;
+      }
+
+      var cars = [
+        new Car('Buick'),
+        new Car('Toyota'),
+        new Car('Honda')
+      ]
+
+      var myCar = cars.find(function(car) {
+        return car.model = 'Toyota';
+      });
+
+      console.log(myCar.model); // => Toyota
+    </script>
+
+    <pre><code class="language-js">
+      function Car(model) {
+        this.model = model;
+      }
+
+      var cars = [
+        new Car('Buick'),
+        new Car('Toyota'),
+        new Car('Honda')
+      ]
+
+      var myCar = cars.find(function(car) {
+        return car.model = 'Toyota';
+      });
+
+      console.log(myCar.model); // => Toyota
+    </code></pre>
+
+    <p>Posts and Comments:</p>
+
+    <script>
+      var posts = [
+        {id: 1, title: 'This is a great post..'},
+        {id: 2, title: 'This post is okay too...'}
+      ]
+
+      var comment = {postId: 2, content: 'Great post, man!'};
+
+      function postForComment(posts, comment) {
+        return posts.find(function(post) {
+          if (post.id === comment.postId) {
+            console.log(post.title);
+          }
+        });
+      }
+
+      postForComment(posts, comment); // => This post is okay too...
+    </script>
+
+    <pre><code class="language-js">
+      var posts = [
+        {id: 1, title: 'This is a great post..'},
+        {id: 2, title: 'This post is okay too...'}
+      ]
+
+      var comment = {postId: 2, content: 'Great post, man!'};
+
+      function postForComment(posts, comment) {
+        return posts.find(function(post) {
+          if (post.id === comment.postId) {
+            console.log(post.title);
+          }
+        });
+      }
+
+      postForComment(posts, comment); // => This post is okay too...
+    </code></pre>
+
+    <p>Find the account with a balance of 20:</p>
+
+    <script>
+      var accounts = [
+        {member: 'Jack', balance: 30},
+        {member: 'Henry', balance: 20},
+        {member: 'Phillip', balance: 40},
+      ]
+
+      var accountWithTwenty = accounts.find(function(account) {
+        if (account.balance === 20) {
+          return account;
+        }
+      });
+
+      console.log(accountWithTwenty.member); // => Henry
+    </script>
+
+    <pre><code class="language-js">
+      var accounts = [
+        {member: 'Jack', balance: 30},
+        {member: 'Henry', balance: 20},
+        {member: 'Phillip', balance: 40},
+      ]
+
+      var accountWithTwenty = accounts.find(function(account) {
+        if (account.balance === 20) {
+          return account;
+        }
+      });
+
+      console.log(accountWithTwenty.member); // => Henry
+    </code></pre>
+
+    <h2>Every and Some Helpers</h2>
+
+    <p>The 'every' and 'some' helpers loop through all the elements in an array, eveluate the truthiness of the return statement, and return a single boolean (true or false).</p>
+
+    <p>The 'every' helper only returns true if EVERY element evaluates to true:</p>
+
+    <script>
+      var computers = [
+        {name: 'Apple', ram: 35},
+        {name: 'Acer', ram: 20},
+        {name: 'Compaq', ram: 12}
+      ]
+
+      var allCanRun = computers.every(function(computer) {
+        return computer.ram > 16;
+      });
+
+      console.log(allCanRun); // => false
+    </script>
+
+    <pre><code class="language-js">
+      var computers = [
+        {name: 'Apple', ram: 35},
+        {name: 'Acer', ram: 20},
+        {name: 'Compaq', ram: 12}
+      ]
+
+      var allCanRun = computers.every(function(computer) {
+        return computer.ram > 16;
+      });
+
+      console.log(allCanRun); // => false
+    </code></pre>
+
+    <p>The 'some' helper returns true if SOME of the elements evaluate to true, otherwise it returns false:</p>
+
+    <script>
+    var computers = [
+      {name: 'Apple', ram: 35},
+      {name: 'Acer', ram: 20},
+      {name: 'Compaq', ram: 12}
+    ]
+
+    var someCanRun = computers.some(function(computer) {
+      return computer.ram > 16;
+    });
+
+    console.log(someCanRun); // => true
+    </script>
+
+    <pre><code class="language-js">
+      var computers = [
+        {name: 'Apple', ram: 35},
+        {name: 'Acer', ram: 20},
+        {name: 'Compaq', ram: 12}
+      ]
+
+      var someCanRun = computers.some(function(computer) {
+        return computer.ram > 16;
+      });
+
+      console.log(someCanRun); // => true
+    </code></pre>
+
+    <h2>Reduce Helper</h2>
+
+    <p>The reduce helper uses the result of each loop to determine the outcome of each successive loop:</p>
+
+    <script>
+      // For each iteration of the loop, the value of 'sum' is added to the element in the array, the value of 'sum' changes, and is then used for the next iteration of the loop:
+
+      var numbers = [10, 20, 30];
+      var sum = 0; // accumulator
+
+      var result = numbers.reduce(function(sum, number) {
+        return sum + number;
+      });
+
+      var anotherResult = numbers.reduce(function(sum, number) {
+        return sum + number;
+      }, 3); // initial value (starting point)
+
+      console.log(result); // => 60
+      console.log(anotherResult); // => 63
+    </script>
+
+    <pre><code class="language-js">
+      // For each iteration of the loop, the value of 'sum' is added to // the element in the array, the value of 'sum' changes, and is // then used for the next iteration of the loop:
+
+      var numbers = [10, 20, 30];
+      var sum = 0; // accumulator
+
+      var result = numbers.reduce(function(sum, number) {
+        return sum + number;
+      });
+
+      var anotherResult = numbers.reduce(function(sum, number) {
+        return sum + number;
+      }, 3); // initial value (starting point)
+
+      console.log(result); // => 60
+      console.log(anotherResult); // => 63
+    </code></pre>
+
+    <p>Push to array using reduce:</p>
+
+    <script>
+      var primaryColors = [
+      {color: 'red'},
+      {color: 'yellow'},
+      {color: 'blue'},
+      ]
+
+      var result = primaryColors.reduce(function(newArray, primaryColor) {
+        newArray.push(primaryColor.color);
+        return newArray; // return array after each 'push'
+      }, []);
+
+      console.log(result);
+    </script>
+
+    <pre><code class="language-js">
+      var primaryColors = [
+      {color: 'red'},
+      {color: 'yellow'},
+      {color: 'blue'},
+      ]
+
+      var result = primaryColors.reduce(function(newArray, primaryColor) {
+        newArray.push(primaryColor.color);
+        return newArray; // return array after each 'push'
+      }, []);
+
+      console.log(result);
+    </code></pre>
+
+    <p>Balanced Parens Example:</p>
+
+    <p>The following function returns 0 if the parens are balanced:</p>
+
+    <script>
+      function balancedParens(string) {
+        // "!" is used for 'flip of boolean'
+        // 0 will return false, and anything else will return true
+        return !string.split("").reduce(function(previous, char) {
+          if (previous < 0) {
+            return previous;
+          }
+          if ( char === '(' ) {
+            return ++previous;
+          }
+          if ( char === ')' ) {
+            return --previous;
+          }
+          return previous;
+        }, 0);
+      }
+
+      console.log(balancedParens("()")); // => true
+      console.log(balancedParens(")(")); // => false
+    </script>
+
+    <pre><code class="language-js">
+      function balancedParens(string) {
+        // "!" is used for 'flip of boolean'
+        // 0 will return false, and anything else will return true
+        return !string.split("").reduce(function(previous, char) {
+          if (previous < 0) {
+            return previous;
+          }
+          if ( char === '(' ) {
+            return ++previous;
+          }
+          if ( char === ')' ) {
+            return --previous;
+          }
+          return previous;
+        }, 0);
+      }
+
+      console.log(balancedParens("()")); // => true
+      console.log(balancedParens(")(")); // => false
+    </code></pre>
+
+    <p>Reduce Distance Traveled:</p>
+
+    <script>
+      var trips = [
+        {distance: 30},
+        {distance: 40},
+        {distance: 50}
+      ]
+
+      var total = trips.reduce(function(count, trip) {
+        return count += trip.distance;
+      }, 0);
+
+      console.log(total); // => 120
+    </script>
+
+    <pre><code class="language-js">
+      var trips = [
+        {distance: 30},
+        {distance: 40},
+        {distance: 50}
+      ]
+
+      var total = trips.reduce(function(count, trip) {
+        return count += trip.distance;
+      }, 0);
+
+      console.log(total); // => 120
+    </code></pre>
+
+    <p>Redicing Properties:</p>
+
+    <script>
+      var desks = [
+        { type: 'sitting'},
+        { type: 'sitting'},
+        { type: 'standing'},
+        { type: 'sitting'},
+        { type: 'standing'}
+      ]
+
+      var deskTypes = desks.reduce(function(accu, desk) {
+        if (desk.type === 'sitting') {
+          accu.sitting++;
+        } else {
+          accu.standing++;
+        }
+        return accu; // Don't forget to return the object
+      }, {sitting: 0, standing: 0});
+
+      console.log(deskTypes); // => {sitting: 3, standing: 2}
+    </script>
+
+    <pre><code class="language-js">
+      var desks = [
+        { type: 'sitting'},
+        { type: 'sitting'},
+        { type: 'standing'},
+        { type: 'sitting'},
+        { type: 'standing'}
+      ]
+
+      var deskTypes = desks.reduce(function(accu, desk) {
+        if (desk.type === 'sitting') {
+          accu.sitting++;
+        } else {
+          accu.standing++;
+        }
+        return accu; // Don't forget to return the object
+      }, {sitting: 0, standing: 0});
+
+      console.log(deskTypes); // => {sitting: 3, standing: 2}
+    </code></pre>
+
+    <p>Use reduce and find helpers to remove duplicate numbers from an array:</p>
+
+    <script>
+      var numbers = [1, 2, 2, 3, 3, 4, 5, 6, 6];
+
+      function unique(array) {
+        return array.reduce(function(arr, number) {
+          var dup = arr.find(function(el) {
+            return el === number;
+          });
+          if(dup) {
+            return arr;
+          }
+          arr.push(number);
+          return arr;
+        }, []);
+      }
+
+      console.log(unique(numbers)); // => [1, 2, 3, 4, 5, 6]
+    </script>
+
+    <pre><code class="language-js">
+      var numbers = [1, 2, 2, 3, 3, 4, 5, 6, 6];
+
+      function unique(array) {
+        return array.reduce(function(arr, number) {
+          var dup = arr.find(function(el) {
+            return el === number;
+          });
+          if(dup) {
+            return arr;
+          }
+          arr.push(number);
+          return arr;
+        }, []);
+      }
+
+      console.log(unique(numbers)); // => [1, 2, 3, 4, 5, 6]
+    </code></pre>
+
+
+
+
+
+
+
+
+
+
+    <script src="http://localhost:35729/livereload.js"></script>
+
+    <script src="scripts/prism.js"></script>
+
+
+  </body>
+</html>

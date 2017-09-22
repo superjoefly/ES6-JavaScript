@@ -1,0 +1,21 @@
+html {
+  background-color: #ebefef;
+}
+
+body {
+    font-family: 'Work Sans', sans-serif;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #322f35;
+}
+
+p {
+  color: grey;
+  padding: 10px;
+}
+
+pre {
+  margin: 10px !important;
+}
