@@ -21,8 +21,13 @@
 
     <script>
       const name = 'Joey';
-      console.log(name);
+      console.log(name); // => 'Joey'
     </script>
+
+    <pre><code class="language-javascript">
+      const name = 'Joey';
+      console.log(name); // => 'Joey'
+    </code></pre>
 
     <p>Const can neither be redeclared nor redefined. Attempting to do so will result in an error.</p>
 
@@ -32,8 +37,13 @@
 
     <script>
       let title = 'Software Engineer';
-      console.log(title);
+      console.log(title); // => 'Software Engineer'
     </script>
+
+    <pre><code class="language-javascript">
+      let title = 'Software Engineer';
+      console.log(title); // => 'Software Engineer'
+    </code></pre>
 
     <p>The difference between var and let is that var is scoped to the nearest function block, and let is scoped to the nearest enclosing block.</p>
 
@@ -42,8 +52,14 @@
     <script>
       let firstName = 'Joey';
       firstName = 'John';
-      console.log(firstName);
+      console.log(firstName); // => 'John'
     </script>
+
+    <pre><code class="language-javascript">
+      let firstName = 'Joey';
+      firstName = 'John';
+      console.log(firstName); // => 'John'
+    </code></pre>
 
     <h2>Reason for Change</h2>
 
@@ -67,6 +83,22 @@
       console.log(count('adjvpwoitr;klne')); // => 15
     </script>
 
+    <pre><code class="language-javascript">
+      function count(targetString) {
+        const chars = ['a', 'e', 'i', 'o', 'u']; // won't change
+        let count = 0; // will change
+
+        for (let i = 0; i < targetString.length; i++) {
+          if (chars.includes(targetString[i])) {
+            count++;
+          }
+        }
+        return count;
+      }
+
+      console.log(count('adjvpwoitr;klne')); // => 15
+    </code></pre>
+
     <h2>Variable Declaration (refactoring):</h2>
 
     <script>
@@ -79,6 +111,17 @@
       // var position = 'Developer'; // will change
       let position = 'Developer';
     </script>
+
+    <pre><code class="language-javascript">
+      // var birthday = '12/12/1979'; // won't change
+      const birthday = '12/12/1979';
+
+      // var age = 37; // will change
+      let age = 37;
+
+      // var position = 'Developer'; // will change
+      let position = 'Developer';
+    </code></pre>
 
     <h2>Another Example</h2>
 
@@ -98,19 +141,27 @@
         }
       }
 
-      console.log(message);
+      console.log(message); // => 'Request Successful'
     </script>
 
+    <pre><code class="language-javascript">
+      let statuses = [
+        {code: 'OK', response: 'Request Successful'},
+        {code: 'Failed', response: 'Request Failed'},
+        {code: 'Pending', response: 'Still Pending...'}
+      ];
 
+      let message = ''; // will change
+      let currentCode = 'OK'; // will change
 
+      for (let i = 0; i < statuses.length; i++) {
+        if (statuses[i].code === currentCode) {
+          message = statuses[i].response;
+        }
+      }
 
-
-
-
-
-
-
-
+      console.log(message); // => 'Request Successful'
+    </code></pre>
 
 
 
