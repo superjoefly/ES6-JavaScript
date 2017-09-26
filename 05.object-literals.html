@@ -13,11 +13,279 @@
   </head>
   <body>
 
-    <h1></h1>
+    <h1>Object Literals</h1>
 
-    <h2></h2>
+    <h2>Enhanced Object Literals</h2>
 
-    <p></p>
+    <p>Object literal syntax has been updated in ES6:</p>
+
+    <script>
+    // ES5 Syntax
+    let inventory = [
+      {title: 'Harry Potter', price: 10},
+      {title: 'The Secret', price: 7},
+    ];
+
+    function createBookShop(inventory) {
+      return {
+        inventory: inventory,
+        inventoryValue: function() {
+          return this.inventory.reduce((total, book) =>
+            total + book.price, 0);
+        },
+        priceForTitle: function(title) {
+          return this.inventory.find(book =>
+            book.title === title).price;
+        }
+      };
+    }
+
+    // The above object can be refactored to use ES6 object literal syntax:
+
+    // ES6 Syntax
+    inventory = [
+      {title: 'Harry Potter', price: 10},
+      {title: 'The Secret', price: 7},
+    ];
+
+    function createBookShop(inventory) {
+      return {
+        // Identical key/value can be listed once
+        inventory,
+
+        // Remove function keyword and colon
+        inventoryValue() {
+          return this.inventory.reduce((total, book) =>
+            total + book.price, 0);
+        },
+
+        // Remove function keyword and colon
+        priceForTitle(title) {
+          return this.inventory.find(book =>
+            book.title === title).price;
+        }
+      };
+    }
+
+    const bookShop = createBookShop(inventory);
+
+    console.log(bookShop.inventoryValue()); // => 17
+    console.log(bookShop.priceForTitle('The Secret')); // => 7
+    </script>
+
+    <pre><code class="language-javascript">
+      // ES5 Syntax
+      let inventory = [
+        {title: 'Harry Potter', price: 10},
+        {title: 'The Secret', price: 7},
+      ];
+
+      function createBookShop(inventory) {
+        return {
+          inventory: inventory,
+          inventoryValue: function() {
+            return this.inventory.reduce((total, book) =>
+              total + book.price, 0);
+          },
+          priceForTitle: function(title) {
+            return this.inventory.find(book =>
+              book.title === title).price;
+          }
+        };
+      }
+
+      // The above object can be refactored to use ES6 object literal syntax:
+
+      // ES6 Syntax
+      inventory = [
+        {title: 'Harry Potter', price: 10},
+        {title: 'The Secret', price: 7},
+      ];
+
+      function createBookShop(inventory) {
+        return {
+          // Identical key/value can be listed once
+          inventory,
+
+          // Remove function keyword and colon
+          inventoryValue() {
+            return this.inventory.reduce((total, book) =>
+              total + book.price, 0);
+          },
+
+          // Remove function keyword and colon
+          priceForTitle(title) {
+            return this.inventory.find(book =>
+              book.title === title).price;
+          }
+        };
+      }
+
+      const bookShop = createBookShop(inventory);
+
+      console.log(bookShop.inventoryValue()); // => 17
+      console.log(bookShop.priceForTitle('The Secret')); // => 7
+    </code></pre>
+
+    <h2>Multiple Properties with Enhanced Notation</h2>
+
+    <p>Refactor to use enhanced object literal syntax</p>
+
+    <script>
+      const red = "#ff0000";
+      const blue = "#0000ff";
+
+      let colors = {red: red, blue: blue};
+
+      // Refactored
+      colors = {red, blue};
+
+      console.log(colors); // => {red: "#ff0000", blue: "#0000ff"}
+    </script>
+
+    <pre><code class="language-javascript">
+      const red = "#ff0000";
+      const blue = "#0000ff";
+
+      let colors = {red: red, blue: blue};
+
+      // Refactored
+      colors = {red, blue};
+
+      console.log(colors); // => {red: "#ff0000", blue: "#0000ff"}
+    </code></pre>
+
+    <h2>Condensing Code</h2>
+
+    <p>Refactor to use enhanced object literal syntax:</p>
+
+    <script>
+      const fields = ['firstName', 'lastName', 'phoneNumber'];
+
+      let props = {fields: fields};
+
+      // Refactored
+
+      props = {fields};
+
+      console.log(props); // => {fields: Array(3)}
+    </script>
+
+    <pre><code class="language-javascript">
+      const fields = ['firstName', 'lastName', 'phoneNumber'];
+
+      let props = {fields: fields};
+
+      // Refactored
+
+      props = {fields};
+
+      console.log(props); // => {fields: Array(3)}
+    </code></pre>
+
+    <h2>Literals in Functions</h2>
+
+    <p>Refactor to use enhanced literal notation:</p>
+
+    <script>
+      let canvasDimensions = function(width, initialHeight) {
+        const height = initialHeight * 9/16;
+        return {
+          width: width,
+          height: height
+        };
+      };
+
+      // Refactored
+      canvasDimensions = function(width, initialHeight) {
+        const height = initialHeight * 9/16;
+        return {
+          width,
+          height
+        };
+      };
+
+      console.log(canvasDimensions(2, 3)); // =>{width: 2, height: 1.6875}
+    </script>
+
+    <pre><code class="language-javascript">
+      let canvasDimensions = function(width, initialHeight) {
+        const height = initialHeight * 9/16;
+        return {
+          width: width,
+          height: height
+        };
+      };
+
+      // Refactored
+      canvasDimensions = function(width, initialHeight) {
+        const height = initialHeight * 9/16;
+        return {
+          width,
+          height
+        };
+      };
+
+      console.log(canvasDimensions(2, 3)); // =>{width: 2, height: 1.6875}
+    </code></pre>
+
+    <h2>Enhanced Literal Notation</h2>
+
+    <p>Refactor to use enhanced literal notation:</p>
+
+    <script>
+      let color = 'yellow';
+      let car = {
+        color: color,
+        drive: function() {
+          return 'Vroom!';
+        },
+        getColor: function() {
+          return this.color;
+        }
+      };
+
+      // Refactored
+      car = {
+        color,
+        drive() {
+          return 'Vroom!';
+        },
+        getColor() {
+          return this.color;
+        }
+      };
+
+      console.log(car.drive()); // => yellow
+      console.log(car.getColor()); // => Vroom!
+    </script>
+
+    <pre><code class="language-javascript">
+      let color = 'yellow';
+      let car = {
+        color: color,
+        drive: function() {
+          return 'Vroom!';
+        },
+        getColor: function() {
+          return this.color;
+        }
+      };
+
+      // Refactored
+      car = {
+        color,
+        drive() {
+          return 'Vroom!';
+        },
+        getColor() {
+          return this.color;
+        }
+      };
+
+      console.log(car.drive()); // => yellow
+      console.log(car.getColor()); // => Vroom!
+    </code></pre>
 
 
 
