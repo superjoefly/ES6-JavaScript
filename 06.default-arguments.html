@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Function Arguments</title>
     <link rel="stylesheet" href="css/prism.css" />
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -13,13 +13,177 @@
   </head>
   <body>
 
-    <h1></h1>
+    <h1>Function Arguments</h1>
 
-    <h2></h2>
+    <h2>Default Function Arguments</h2>
 
-    <p></p>
+    <p>We can now set a default value for function arguments inside the argument list:</p>
 
+    <script>
+      // Default value for 'method; is GET
+      function makeRequest(url, method="GET") {
+        return method;
+      }
 
+      // No argument for 'method' provided will return the default
+      console.log(makeRequest('google.com')); // => GET
+
+      // Argument for 'method' is provided
+      console.log(makeRequest('google.com', 'POST')); // => POST
+
+      // Null and Undefined
+      console.log(makeRequest('google.com', null)); // => null
+      console.log(makeRequest('google.com', undefined)); // => GET
+    </script>
+
+    <pre><code class="language-javascript">
+      // Default value for 'method; is GET
+      function makeRequest(url, method="GET") {
+        return method;
+      }
+
+      // No argument for 'method' provided will return the default
+      console.log(makeRequest('google.com')); // => GET
+
+      // Argument for 'method' is provided
+      console.log(makeRequest('google.com', 'POST')); // => POST
+
+      // Null and Undefined
+      console.log(makeRequest('google.com', null)); // => null
+      console.log(makeRequest('google.com', undefined)); // => GET
+    </code></pre>
+
+    <h2>Use Case</h2>
+
+    <p>Create an admin user:</p>
+
+    <script>
+      function User(id, name) {
+        this.id = id;
+      }
+
+      function generateId() {
+        return Math.floor(Math.random() * 10000000);
+      }
+
+      // Default function argument is set for user
+      function createAdmin(name, user = new User(generateId())) {
+        user.name = name;
+        user.admin = true;
+        return user;
+      }
+
+      let adminUser = createAdmin('John');
+      console.log(adminUser); // => User {id: 4854879, name: "John", anything: "anything", admin: true}
+    </script>
+
+    <pre><code class="language-javascript">
+      function User(id, name) {
+        this.id = id;
+      }
+
+      function generateId() {
+        return Math.floor(Math.random() * 10000000);
+      }
+
+      // Default function argument is set for user
+      function createAdmin(name, user = new User(generateId())) {
+        user.name = name;
+        user.admin = true;
+        return user;
+      }
+
+      let adminUser = createAdmin('John');
+      console.log(adminUser); // => User {id: 4854879, name: "John", anything: "anything", admin: true}
+    </code></pre>
+
+    <h2>Refactoring</h2>
+
+    <p>Refactor to use default function arguments:</p>
+
+    <script>
+      function sum(a, b) {
+        if (a === undefined) {
+          a = 0;
+        }
+
+        if (b === undefined) {
+          b = 0;
+        }
+
+        return a + b;
+      }
+
+      // Refactored
+
+      function sum(a = 0, b = 0) {
+        return a + b;
+      }
+
+      console.log(sum(3)); // => 3
+      console.log(sum(3, 4)); // => 7
+    </script>
+
+    <pre><code class="language-javascript">
+      function sum(a, b) {
+        if (a === undefined) {
+          a = 0;
+        }
+
+        if (b === undefined) {
+          b = 0;
+        }
+
+        return a + b;
+      }
+
+      // Refactored
+
+      function sum(a = 0, b = 0) {
+        return a + b;
+      }
+
+      console.log(sum(3)); // => 3
+      console.log(sum(3, 4)); // => 7
+    </code></pre>
+
+    <p>Refactor to use default function arguments:</p>
+
+    <script>
+      function addOffSet(style) {
+        if (!style) {
+          style = {};
+        }
+        style.offset = '10px';
+        return style;
+      }
+
+      // Refactored
+      function addOffSet(style = {}) {
+        style.offset = '10px';
+        return style;
+      }
+
+      console.log(addOffSet());
+    </script>
+
+    <pre><code class="language-javascript">
+      function addOffSet(style) {
+        if (!style) {
+          style = {};
+        }
+        style.offset = '10px';
+        return style;
+      }
+
+      // Refactored
+      function addOffSet(style = {}) {
+        style.offset = '10px';
+        return style;
+      }
+
+      console.log(addOffSet());
+    </code></pre>
 
 
   <script src="http://localhost:35729/livereload.js"></script>

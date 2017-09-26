@@ -19,3 +19,10 @@ p {
 pre {
   margin: 10px !important;
 }
+
+@media all and (min-width: 800px) {
+  pre {
+    margin: auto !important;
+    width: 75%;
+  }
+}
