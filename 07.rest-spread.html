@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Rest and Spread</title>
     <link rel="stylesheet" href="css/prism.css" />
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -13,13 +13,285 @@
   </head>
   <body>
 
-    <h1></h1>
+    <h1>Rest and Spread Operators</h1>
 
-    <h2></h2>
+    <h2>Rest Operator (...parameter)</h2>
 
-    <p></p>
+    <p>The rest parameter allows us to represent an indefinite number of arguments as an array:</p>
 
+    <script>
+      let numbers = [1, 2, 3, 4, 5];
 
+      function addNumbers(numbers) {
+        return numbers.reduce((sum, number) => {
+          return sum + number;
+        }, 0);
+      }
+
+      console.log(addNumbers(numbers)); // => 15
+
+      /////////////////////////
+
+      // Use rest operator to capture list of arguments
+      function addNumbers(...numbers) {
+        return numbers.reduce((sum, number) => {
+          return sum + number;
+        });
+      }
+      // Pass in multiple arguments instead of an array
+      console.log(addNumbers(1, 2, 3, 4, 5)); // => 15
+    </script>
+
+    <pre><code class="language-javascript">
+      let numbers = [1, 2, 3, 4, 5];
+
+      function addNumbers(numbers) {
+        return numbers.reduce((sum, number) => {
+          return sum + number;
+        }, 0);
+      }
+
+      console.log(addNumbers(numbers)); // => 15
+
+      /////////////////////////
+
+      // Use rest operator to capture list of arguments
+      function addNumbers(...numbers) {
+        return numbers.reduce((sum, number) => {
+          return sum + number;
+        });
+      }
+      // Pass in multiple arguments instead of an array
+      console.log(addNumbers(1, 2, 3, 4, 5)); // => 15
+    </code></pre>
+
+    <h2>Spread Operator [...variable, ...variable]</h2>
+
+    <p>The spread operator allows an iterable, such as an array expression, to be expanded in places where zero or more arguments (or function calls), or elements (for array literals) are expected, or an object expression to be expanded in places where zero or more key-value pairs (for object literals) are expected:</p>
+
+    <h2>Array Concatenation</h2>
+
+    <script>
+    let darkColors = ['royal-blue', 'brown', 'forest-green'];
+    let brightColors = ['yellow', 'bright-orange', 'light-pink'];
+    let otherColors = ['purple', 'aqua', 'sea-green'];
+
+    // ES5 - using array1.concat(array2)
+    let colors = darkColors.concat(brightColors);
+    console.log(colors); // => ["royal-blue", "brown", "forest-green", "yellow", "bright-orange", "light-pink"]
+
+    // ES6 - spread operator [...variable, ...variable]
+    colors = [...darkColors, ...brightColors];
+    console.log(colors); // => ["royal-blue", "brown", "forest-green", "yellow", "bright-orange", "light-pink"]
+
+    // Easily add more arrays or elements:
+    colors = [...darkColors, ...brightColors, ...otherColors];
+
+    colors = ['gold', ...darkColors];
+    console.log(colors); // => ["gold", "royal-blue", "brown", "forest-green"]
+    </script>
+
+    <pre><code class="language-javascript">
+      let darkColors = ['royal-blue', 'brown', 'forest-green'];
+      let brightColors = ['yellow', 'bright-orange', 'light-pink'];
+      let otherColors = ['purple', 'aqua', 'sea-green'];
+
+      // ES5 - using array1.concat(array2)
+      let colors = darkColors.concat(brightColors);
+      console.log(colors); // => ["royal-blue", "brown", "forest-green", "yellow", "bright-orange", "light-pink"]
+
+      // ES6 - spread operator [...variable, ...variable]
+      colors = [...darkColors, ...brightColors];
+      console.log(colors); // => ["royal-blue", "brown", "forest-green", "yellow", "bright-orange", "light-pink"]
+
+      // Easily add more arrays or elements:
+      colors = [...darkColors, ...brightColors, ...otherColors];
+
+      colors = ['gold', ...darkColors];
+      console.log(colors); // => ["gold", "royal-blue", "brown", "forest-green"]
+    </code></pre>
+
+    <h2>Combining Rest and Spread</h2>
+
+    <p>Rest and Spread can be combined:</p>
+
+    <script>
+      function checkShoppingList(...items) {
+        if (items.indexOf('milk') < 0) {
+          let list = ['milk', ...items];
+          return list;
+        }
+      }
+
+      console.log(checkShoppingList('bread', 'cheese', 'juice'));
+      // => ["milk", "bread", "cheese", "juice"]
+    </script>
+
+    <pre><code class="language-javascript">
+      function checkShoppingList(...items) {
+        if (items.indexOf('milk') < 0) {
+          let list = ['milk', ...items];
+          return list;
+        }
+      }
+
+      console.log(checkShoppingList('bread', 'cheese', 'juice'));
+      // => ["milk", "bread", "cheese", "juice"]
+    </code></pre>
+
+    <h2>Another Example</h2>
+
+    <p>Change the name of a method without breaking other peoples apps:</p>
+
+    <script>
+      const MathLibrary = {
+        calcProduct(...rest) {
+          console.log('Please use the multiply method instead!');
+          return this.multiply(...rest);
+        },
+        multiply(a, b) {
+          return a * b; // => 12
+        }
+      };
+
+      console.log(MathLibrary.calcProduct(3, 4));
+      // => Please use multiply method instead
+      // => 12
+
+      console.log(MathLibrary.multiply(3,4));
+      // => 12
+    </script>
+
+    <pre><code class="language-javascript">
+      const MathLibrary = {
+        calcProduct(...rest) {
+          console.log('Please use the multiply method instead!');
+          return this.multiply(...rest);
+        },
+        multiply(a, b) {
+          return a * b; // => 12
+        }
+      };
+
+      console.log(MathLibrary.calcProduct(3, 4));
+      // => Please use multiply method instead
+      // => 12
+
+      console.log(MathLibrary.multiply(3,4));
+      // => 12
+    </code></pre>
+
+    <h2>More Refactoring and Examples</h2>
+
+    <p>Refactor code to use the rest operator:</p>
+
+    <script>
+    function product(a, b, c, d, e) {
+      let numbers = [a, b, c, d, e];
+
+      return numbers.reduce(function(product, number) {
+        return product * number;
+      }, 1);
+    }
+
+    console.log(product(2, 3, 4, 5, 6)); // => 720
+
+    // Refactored:
+    function product(...rest) {
+      let numbers = [...rest];
+
+      return numbers.reduce(function(product, number) {
+        return product * number;
+      }, 1);
+    }
+
+    console.log(product(3, 4, 7, 8)); // => 672
+    </script>
+
+    <pre><code class="language-javascript">
+      function product(a, b, c, d, e) {
+        let numbers = [a, b, c, d, e];
+
+        return numbers.reduce(function(product, number) {
+          return product * number;
+        }, 1);
+      }
+
+      console.log(product(2, 3, 4, 5, 6)); // => 720
+
+      // Refactored:
+      function product(...rest) {
+        let numbers = [...rest];
+
+        return numbers.reduce(function(product, number) {
+          return product * number;
+        }, 1);
+      }
+
+      console.log(product(3, 4, 7, 8)); // => 672
+    </code></pre>
+
+    <p>Use a spread operator to join two arrays:</p>
+
+    <script>
+      let arr1 = [1, 2, 3];
+      let arr2 = [5, 6, 7];
+
+      function join(first, second) {
+        let newArray = [...first, ...second];
+        return newArray;
+      }
+
+      console.log(join(arr1, arr2)); // => [1, 2, 3, 5, 6, 7]
+    </script>
+
+    <pre><code class="language-javascript">
+      let arr1 = [1, 2, 3];
+      let arr2 = [5, 6, 7];
+
+      function join(first, second) {
+        let newArray = [...first, ...second];
+        return newArray;
+      }
+
+      console.log(join(arr1, arr2)); // => [1, 2, 3, 5, 6, 7]
+    </code></pre>
+
+    <p>Refactor to use only the rest operator:</p>
+
+    <script>
+      function unShift(array, a, b, c) {
+        return [a, b, c].concat(array);
+      }
+
+      // Refactored:
+      function unShift(array, ...rest) {
+        return [...rest, ...array];
+      }
+
+      let myArray = [1, 2, 3];
+
+      myArray = unShift(myArray, 5, 6, 7);
+
+      console.log(myArray); // => [5, 6, 7, 1, 2, 3]
+    </script>
+
+    <pre><code class="language-javascript">
+      function unShift(array, a, b, c) {
+        return [a, b, c].concat(array);
+      }
+
+      // Refactored:
+      function unShift(array, ...rest) {
+        return [...rest, ...array];
+      }
+
+      let myArray = [1, 2, 3];
+
+      myArray = unShift(myArray, 5, 6, 7);
+
+      console.log(myArray); // => [5, 6, 7, 1, 2, 3]
+    </code></pre>
 
 
   <script src="http://localhost:35729/livereload.js"></script>
