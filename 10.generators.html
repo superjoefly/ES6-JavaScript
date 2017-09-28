@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Generators</title>
     <link rel="stylesheet" href="css/prism.css" />
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -13,11 +13,295 @@
   </head>
   <body>
 
-    <h1></h1>
+    <h1>Generators</h1>
 
-    <h2></h2>
+    <h2>For...Of Loops</h2>
 
-    <p></p>
+    <p>We can use for...of loops to loop iterate arrays of data:</p>
+
+    <script>
+      let colors = ['red', 'green', 'blue'];
+
+      for (let color of colors) {
+        console.log(color); // => red green blue
+      }
+    </script>
+
+    <h2>Generators</h2>
+
+    <p>Generators are functions that can be entered and exited multiple times. For example, we can enter a function, execute some code, return a value, and then go back into the function and execute some more code:</p>
+
+    <script>
+      function* numbers() {
+        console.log('start of code');
+        yield; // exit function and yield value (undefined)
+
+        // Come back into the function
+        console.log('re-enter 1');
+        yield; // exit function and yield value (undefined)
+
+        // Come back into function and execute code
+        console.log('re-enter 2');
+      }
+
+      let gen = numbers();
+
+      // Done is always false when hitting the yield statement
+      // We re-enter the function at the point of each yield;
+      // and continue to execute code in the function
+
+      // First time entering done is false
+      console.log(gen.next()); // => done: false
+
+      // Second time we enter done is false
+      console.log(gen.next()); // => done: false
+
+      // Third time we enter done is true
+      console.log(gen.next()); // => done: true
+    </script>
+
+    <pre><code class="language-javascript">
+      function* numbers() {
+        console.log('start of code');
+        yield; // exit function and yield value (undefined)
+
+        // Come back into the function
+        console.log('re-enter 1');
+        yield; // exit function and yield value (undefined)
+
+        // Come back into function and execute code
+        console.log('re-enter 2');
+      }
+
+      let gen = numbers();
+
+      // Done is always false when hitting the yield statement
+      // We re-enter the function at the point of each yield;
+      // and continue to execute code in the function
+
+      // First time entering done is false
+      console.log(gen.next()); // => done: false
+
+      // Second time we enter done is false
+      console.log(gen.next()); // => done: false
+
+      // Third time we enter done is true
+      console.log(gen.next()); // => done: true
+    </code></pre>
+
+    <p>Further along generators:</p>
+
+    <script>
+      function* shopping() {
+        let store = yield 'products';
+        let station = yield 'gas';
+
+        // return[store, station];
+      }
+
+      let gen2 = shopping(); // does not execute
+      console.log(gen2); // => 'suspended'
+
+      console.log(gen2.next()); // => {value: "products", done: false}
+      console.log(gen2.next()); // => {value: "gas", done: false}
+      console.log(gen2.next('candy')); // {value: "candy", done: true}
+    </script>
+
+    <pre><code class="language-javascript">
+      function* shopping() {
+        let store = yield 'products';
+        let station = yield 'gas';
+
+        // return[store, station];
+      }
+
+      let gen2 = shopping(); // does not execute
+      console.log(gen2); // => 'suspended'
+
+      console.log(gen2.next()); // => {value: "products", done: false}
+      console.log(gen2.next()); // => {value: "gas", done: false}
+      console.log(gen2.next('candy')); // {value: "candy", done: true}
+    </code></pre>
+
+    <h2>Generator and for...of Loop</h2>
+
+    <p>Generator functions are useful in that they allow us to iterate over any type of data structure:</p>
+
+    <script>
+      function* showColors() {
+        yield 'red';
+        yield 'green';
+        yield 'blue';
+      }
+
+      let gen3 = showColors();
+
+      let colorsArray = [];
+      for (let color of showColors()) {
+        colorsArray.push(color);
+      }
+
+      console.log(colorsArray); // => ["red", "green", "blue"]
+    </script>
+
+    <pre><code class="language-javascript">
+      function* showColors() {
+        yield 'red';
+        yield 'green';
+        yield 'blue';
+      }
+
+      let gen3 = showColors();
+
+      let colorsArray = [];
+      for (let color of showColors()) {
+        colorsArray.push(color);
+      }
+
+      console.log(colorsArray); // => ["red", "green", "blue"]
+    </code></pre>
+
+    <p>Get only the employee names:</p>
+
+    <script>
+      let myTeam = {
+        size: 3,
+        department: 'development',
+        lead: 'joefly',
+        manager: 'johnx',
+        backup: 'davent'
+      };
+
+      function* getNames(team) {
+        yield team.lead;
+        yield team.manager;
+        yield team.backup;
+      }
+
+      let teamNames = [];
+
+      for (let name of getNames(myTeam)) {
+        teamNames.push(name);
+      }
+
+      console.log(teamNames); // => ["joefly", "johnx", "davent"]
+    </script>
+
+    <pre><code class="language-javascript">
+      let myTeam = {
+        size: 3,
+        department: 'development',
+        lead: 'joefly',
+        manager: 'johnx',
+        backup: 'davent'
+      };
+
+      function* getNames(team) {
+        yield team.lead;
+        yield team.manager;
+        yield team.backup;
+      }
+
+      let teamNames = [];
+
+      for (let name of getNames(myTeam)) {
+        teamNames.push(name);
+      }
+
+      console.log(teamNames); // => ["joefly", "johnx", "davent"]
+    </code></pre>
+
+    <p>Get names from more than one object:</p>
+
+    <script>
+      // testingTeam is a sub-team of devTeam
+      let testingTeam = {
+        size: 2,
+        department: 'testing',
+        lead: 'Henry',
+        manager: 'David'
+      };
+
+      let devTeam = {
+        testingTeam, // reference to testingTeam
+        size: 3,
+        department: 'development',
+        lead: 'Craig',
+        manager: 'Philip',
+        backup: 'Brian'
+      };
+
+      function* getTeamNames(team) {
+        yield team.lead;
+        yield team.manager;
+        yield team.backup;
+        const generator = getTestingTeam(team.testingTeam);
+
+        // Using yield* tells the for...of loop to iterate down into the testingTeam object
+        yield* generator;
+      }
+
+      function* getTestingTeam(team) {
+        yield team.lead;
+        yield team.manager;
+      }
+
+      let devTeamNames = [];
+
+      for (let name of getTeamNames(devTeam)) {
+        devTeamNames.push(name);
+      }
+
+      console.log(devTeamNames); // => ["Craig", "Philip", "Brian", "Henry", "David"]
+    </script>
+
+    <pre><code class="language-javascript">
+      // testingTeam is a sub-team of devTeam
+      let testingTeam = {
+        size: 2,
+        department: 'testing',
+        lead: 'Henry',
+        manager: 'David'
+      };
+
+      let devTeam = {
+        testingTeam, // reference to testingTeam
+        size: 3,
+        department: 'development',
+        lead: 'Craig',
+        manager: 'Philip',
+        backup: 'Brian'
+      };
+
+      function* getTeamNames(team) {
+        yield team.lead;
+        yield team.manager;
+        yield team.backup;
+        const generator = getTestingTeam(team.testingTeam);
+
+        // Using yield* tells the for...of loop to iterate down into the testingTeam object
+        yield* generator;
+      }
+
+      function* getTestingTeam(team) {
+        yield team.lead;
+        yield team.manager;
+      }
+
+      let devTeamNames = [];
+
+      for (let name of getTeamNames(devTeam)) {
+        devTeamNames.push(name);
+      }
+
+      console.log(devTeamNames); // => ["Craig", "Philip", "Brian", "Henry", "David"]
+    </code></pre>
+
+    <h2>Symbol.Iterator with Generators</h2>
+
+    <p>Symbol.Iterator is a tool that tells the for...of loop how to iterate over objects:</p>
+
+
 
 
 
