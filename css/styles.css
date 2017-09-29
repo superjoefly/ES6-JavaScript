@@ -6,6 +6,13 @@ body {
     font-family: 'Work Sans', sans-serif;
 }
 
+@media all and (min-width: 800px) {
+  body {
+    width: 75%;
+    margin: auto;
+  }
+}
+
 h1, h2 {
   text-align: center;
   color: #322f35;
@@ -20,9 +27,9 @@ pre {
   margin: 10px !important;
 }
 
-@media all and (min-width: 800px) {
+/*@media all and (min-width: 800px) {
   pre {
     margin: auto !important;
     width: 75%;
   }
-}
+}*/
