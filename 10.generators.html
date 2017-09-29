@@ -231,16 +231,20 @@
         backup: 'Brian'
       };
 
+      // Generator
       function* getTeamNames(team) {
         yield team.lead;
         yield team.manager;
         yield team.backup;
+
+        // Refer to another generator
         const generator = getTestingTeam(team.testingTeam);
 
         // Using yield* tells the for...of loop to iterate down into the testingTeam object
         yield* generator;
       }
 
+      // Another Generator
       function* getTestingTeam(team) {
         yield team.lead;
         yield team.manager;
@@ -301,9 +305,147 @@
 
     <p>Symbol.Iterator is a tool that tells the for...of loop how to iterate over objects:</p>
 
+    <script>
+      let testTeam = {
+        lead: 'James',
+        tester: 'Hank',
+        backup: 'Luis',
 
+        [Symbol.iterator]: function* () {
+          yield this.lead;
+          yield this.tester;
+          yield this.backup;
+        }
+      };
 
+      let gameTeam = {
+        testTeam, // reference to testTeam object
+        size: 5,
+        department: 'Games',
+        lead: 'Joey',
+        manager: 'Alex',
+        backup: 'John'  ,
 
+        [Symbol.iterator]: function* () {
+          yield this.lead;
+          yield this.manager;
+          yield this.backup;
+          yield* this.testTeam;
+        }
+      };
+
+      // yield* (above) tells the for...of loop to iterate down into the testTeam object
+
+      let gameTeamNames = [];
+
+      for (let name of gameTeam) {
+        gameTeamNames.push(name);
+      }
+
+      console.log(gameTeamNames); // => ["Joey", "Alex", "John", "James", "Hank", "Luis"]
+    </script>
+
+    <pre><code class="language-javascript">
+      let testTeam = {
+        lead: 'James',
+        tester: 'Hank',
+        backup: 'Luis',
+
+        [Symbol.iterator]: function* () {
+          yield this.lead;
+          yield this.tester;
+          yield this.backup;
+        }
+      };
+
+      let gameTeam = {
+        testTeam, // reference to testTeam object
+        size: 5,
+        department: 'Games',
+        lead: 'Joey',
+        manager: 'Alex',
+        backup: 'John'  ,
+
+        [Symbol.iterator]: function* () {
+          yield this.lead;
+          yield this.manager;
+          yield this.backup;
+          yield* this.testTeam;
+        }
+      };
+
+      // yield* (above) tells the for...of loop to iterate down into the testTeam object
+
+      let gameTeamNames = [];
+
+      for (let name of gameTeam) {
+        gameTeamNames.push(name);
+      }
+
+      console.log(gameTeamNames); // => ["Joey", "Alex", "John", "James", "Hank", "Luis"]
+    </code></pre>
+
+    <h2>Generators with Recursion</h2>
+
+    <p>Note: array helpers, like map and forEach, do not work with generators... we cannot yield from inside an array helper...we must use a for...of loop.</p>
+
+    <p>Create a comment with comments tree:</p>
+
+    <script>
+      class Comment {
+        constructor(content, children) {
+          this.content = content;
+          this.children = children;
+        }
+
+        *[Symbol.iterator]() {
+          yield this.content;
+          for (let child of this.children) {
+            yield* child;
+          }
+        }
+      }
+
+      let children = [
+        new Comment('good comment', []),
+        new Comment('great comment', []),
+        new Comment('meh', [])
+      ];
+
+      let tree = new Comment('Great Post', children);
+
+      console.log(tree); // => returns a Comment object with a single content and an array of child objects, each having its own content and children etc...
+
+      // => Comment {content: "Great Post", children: Array(3)}
+    </script>
+
+    <pre><code class="language-javascript">
+      class Comment {
+        constructor(content, children) {
+          this.content = content;
+          this.children = children;
+        }
+
+        *[Symbol.iterator]() {
+          yield this.content;
+          for (let child of this.children) {
+            yield* child;
+          }
+        }
+      }
+
+      let children = [
+        new Comment('good comment', []),
+        new Comment('great comment', []),
+        new Comment('meh', [])
+      ];
+
+      let tree = new Comment('Great Post', children);
+
+      console.log(tree); // => returns a Comment object with a single content and an array of child objects, each having its own content and children etc...
+
+      // => Comment {content: "Great Post", children: Array(3)}
+    </code></pre>
 
 
   <script src="http://localhost:35729/livereload.js"></script>
