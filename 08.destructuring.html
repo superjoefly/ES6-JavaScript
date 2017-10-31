@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Destructuring</title>
+    <link rel="stylesheet" href="css/prism.css" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+
+    <h1>Destructuring</h1>
+
+    <h2>Destructuring Objects</h2>
+
+    <p>Pulling properties off of objects:</p>
+
+    <script>
+      const expense = {
+        type: 'business',
+        amount: '$45 USD'
+      };
+
+      const {type} = expense; // same as expense.type
+      const {amount} = expense; // same as expense.amount
+
+      console.log(type); // => business
+      console.log(amount); // => $45 USD
+    </script>
+
+    <pre><code class="language-javascript">
+      const expense = {
+        type: 'business',
+        amount: '$45 USD'
+      };
+
+      const {type} = expense; // same as expense.type
+      const {amount} = expense; // same as expense.amount
+
+      console.log(type); // => business
+      console.log(amount); // => $45 USD
+    </code></pre>
+
+    <h2>Destructuring Object Arguments</h2>
+
+    <script>
+      let savedFile = {
+        extension: '.jpg',
+        name: 'repost',
+        size: 13244
+      };
+
+      // Destructure (pull out) the arguements of the object:
+      function fileSummary({extension, name, size}) {
+        return `
+          The file ${name}${extension} has a size of ${size}
+        `;
+      }
+
+      console.log(fileSummary(savedFile)); // => The file repost.jpg has a size of 13244
+    </script>
+
+    <pre><code class="language-javascript">
+      let savedFile = {
+        extension: '.jpg',
+        name: 'repost',
+        size: 13244
+      };
+
+      // Destructure (pull out) the arguements of the object:
+      function fileSummary({extension, name, size}) {
+        return `
+          The file ${name}${extension} has a size of ${size}
+        `;
+      }
+
+      console.log(fileSummary(savedFile)); // => The file repost.jpg has a size of 13244
+    </code></pre>
+
+    <p>Pass in another argument:</p>
+
+    <script>
+    savedFile = {
+      extension: '.jpg',
+      name: 'repost',
+      size: 13244
+    };
+
+    // Pass in another argument
+    function fileDetails({extension, name, size}, {color}) {
+      return `
+        The file ${name}${extension} has a size of ${size} and its primary color is ${color}
+      `;
+    }
+
+    console.log(fileDetails(savedFile, {color: 'red'}));
+    // => The file repost.jpg has a size of 13244 and its primary color is red
+    </script>
+
+    <pre><code class="language-javascript">
+      savedFile = {
+        extension: '.jpg',
+        name: 'repost',
+        size: 13244
+      };
+
+      // Pass in another argument
+      function fileDetails({extension, name, size}, {color}) {
+        return `
+          The file ${name}${extension} has a size of ${size} and its primary color is ${color}
+        `;
+      }
+
+      console.log(fileDetails(savedFile, {color: 'red'}));
+      // => The file repost.jpg has a size of 13244 and its primary color is red
+    </code></pre>
+
+    <h2>Destructuring Arrays</h2>
+
+    <p>Pulling elements off array:</p>
+
+    <script>
+      const companies = [
+        'Google',
+        'Uber',
+        'Facebook',
+        'Twitter'
+      ];
+
+      let [name1, name2, name3] = companies;
+      console.log(name1, name2, name3); // => Google Uber Facebook
+
+      // Using the 'rest' operator
+
+      [name1, ...rest] = companies;
+      console.log(name1, ...rest); // => Google Uber Facebook Twitter
+    </script>
+
+    <pre><code class="language-javascript">
+      const companies = [
+        'Google',
+        'Uber',
+        'Facebook',
+        'Twitter'
+      ];
+
+      let [name1, name2, name3] = companies;
+      console.log(name1, name2, name3); // => Google Uber Facebook
+
+      // Using the 'rest' operator
+
+      [name1, ...rest] = companies;
+      console.log(name1, ...rest); // => Google Uber Facebook Twitter
+    </code></pre>
+
+    <h2>Destructuring Objects and Arrays</h2>
+
+    <p>Destructure the objects and array at the same time:</p>
+
+    <script>
+      let friends = [
+        {name: 'Mike', flocation: 'Houston'},
+        {name: 'James', flocation: 'Denver'},
+        {name: 'Chris', flocation: 'California'}
+      ];
+
+      // Pull the elements using []
+      // Pull the property using {}
+
+      const [{flocation}, ...elements] = friends;
+      console.log(flocation); // => Houston
+      console.log(elements); // returns the second and third object in the array
+    </script>
+
+    <pre><code class="language-javascript">
+      let friends = [
+        {name: 'Mike', flocation: 'Houston'},
+        {name: 'James', flocation: 'Denver'},
+        {name: 'Chris', flocation: 'California'}
+      ];
+
+      // Pull the elements using []
+      // Pull the property using {}
+
+      const [{flocation}, ...elements] = friends;
+      console.log(flocation); // => Houston
+      console.log(elements); // returns the second and third object in the array
+    </code></pre>
+
+    <h2>Destructuring Properties and Elements</h2>
+
+    <p>Pull the properties out of an object:</p>
+
+    <script>
+      const Elite = {
+        hours: ['Morning', 'Day', 'Night'],
+        areas: ['San Francisco', 'New York', 'LA'],
+        employees: ['Joey', 'James', 'Stephen']
+      };
+      const {hours} = Elite;
+      console.log(hours); // => ["Morning", "Day", "Night"]
+
+      // Pull element out of array
+      const {areas: [area1, area2]} = Elite;
+      console.log(area2); // => New York
+
+      const {employees, employees: [employee, ...people]} = Elite;
+
+      // Pull property out of object
+      console.log(employees); // => ["Joey", "James", "Stephen"]
+
+      // Pull element out of array
+      console.log(employee); // => Joey
+
+      // Use rest operator to log remaining employees
+      console.log(...people); // => James Stephen
+    </script>
+
+    <pre><code class="language-javascript">
+      const Elite = {
+        hours: ['Morning', 'Day', 'Night'],
+        areas: ['San Francisco', 'New York', 'LA'],
+        employees: ['Joey', 'James', 'Stephen']
+      };
+      const {hours} = Elite;
+      console.log(hours); // => ["Morning", "Day", "Night"]
+
+      // Pull element out of array
+      const {areas: [area1, area2]} = Elite;
+      console.log(area2); // => New York
+
+      const {employees, employees: [employee, ...people]} = Elite;
+
+      // Pull property out of object
+      console.log(employees); // => ["Joey", "James", "Stephen"]
+
+      // Pull element out of array
+      console.log(employee); // => Joey
+
+      // Use rest operator to log remaining employees
+      console.log(...people); // => James Stephen
+    </code></pre>
+
+    <h2>Practical Use</h2>
+
+    <p>With destructuring of the arguments, the order of the arguments does not matter:</p>
+
+    <script>
+      function signUp({dob, name, city, password}) {
+        console.log(name);
+      }
+
+      // code
+      // code
+      // code
+      // code
+      // code
+
+      // later in the code we don't have to worry about the order of the arguments
+
+      let user = {
+        name: 'Joey',
+        dob: '12/12/1979',
+        password: 'a;sdkljga;lg',
+        city: 'Boulder'
+      };
+
+      signUp(user); // => Joey
+    </script>
+
+    <pre><code class="language-javascript">
+      function signUp({dob, name, city, password}) {
+        console.log(name);
+      }
+
+      // code
+      // code
+      // code
+      // code
+      // code
+
+      // later in the code we don't have to worry about the order of the arguments
+
+      let user = {
+        name: 'Joey',
+        dob: '12/12/1979',
+        password: 'a;sdkljga;lg',
+        city: 'Boulder'
+      };
+
+      signUp(user); // => Joey
+    </code></pre>
+
+    <p>Destructuring arrays:</p>
+
+    <script>
+      let points = [
+        [3, 4],
+        [9, 8],
+        [2, 1]
+      ];
+
+      let coords = points.map(function([x, y]) {
+        return {x, y};
+      });
+
+      console.log(coords); // returns 3 objects in an array with the first value in each array having an x-key and the second value in each array having a y-key
+    </script>
+
+    <pre><code class="language-javascript">
+      let points = [
+        [3, 4],
+        [9, 8],
+        [2, 1]
+      ];
+
+      let coords = points.map(function([x, y]) {
+        return {x, y};
+      });
+
+      console.log(coords); // returns 3 objects in an array with the first value in each array having an x-key and the second value in each array having a y-key
+    </code></pre>
+
+    <p>Another example (classes as object):</p>
+
+    <script>
+      const classes = [
+        ['Linux Systems', '9am', 'Mr. Hendricks'],
+        ['Business Management', '10am', 'Mrs. Flowers'],
+        ['Accounting', '12pm', 'Mr. Phillips']
+      ];
+
+      // For each iteration of the loop we are destructuring (pulling out) the first, second and third elements of each array and assigning them names...then we return an object for each array, resulting in an array of objects:
+
+      const classesAsObject = classes.map(function([subject, time, teacher]) {
+        return {subject, time, teacher};
+      });
+
+      console.log(classesAsObject);
+    </script>
+
+    <pre><code class="language-javascript">
+      const classes = [
+        ['Linux Systems', '9am', 'Mr. Hendricks'],
+        ['Business Management', '10am', 'Mrs. Flowers'],
+        ['Accounting', '12pm', 'Mr. Phillips']
+      ];
+
+      // For each iteration of the loop we are destructuring
+      // (pulling out) the first, second and third elements of
+      // each array and assigning them names...then we return an
+      // object for each array, resulting in an array of objects:
+
+      const classesAsObject = classes.map(function([subject, time, teacher]) {
+        return {subject, time, teacher};
+      });
+
+      console.log(classesAsObject);
+    </code></pre>
+
+    <button class="w3-button w3-block w3-teal w3-margin-bottom" onClick="goBack()">Back</button>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+  <script src="scripts/prism.js"></script>
+  </body>
+</html>

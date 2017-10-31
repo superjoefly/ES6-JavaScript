@@ -1,0 +1,113 @@
+html {
+  background-color: #ebefef;
+}
+
+body {
+    font-family: 'Work Sans', sans-serif;
+}
+
+@media all and (min-width: 800px) {
+  body {
+    width: 75%;
+    margin: auto;
+  }
+}
+
+h1, h2 {
+  text-align: center;
+  color: #322f35;
+}
+
+p {
+  color: grey;
+  padding: 10px;
+}
+
+pre {
+  margin: 10px !important;
+}
+
+ul li {
+  list-style-type: none;
+  padding: 5px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #1F8FB3;
+}
+
+a:visited {
+  color: grey;
+}
+
+a:hover {
+  color: orange;
+}
+
+a:active {
+  color: lime;
+}
+
+
+/*NavBar*/
+
+nav ul {
+border-top: 1px solid silver;
+background-color: black;
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+position: fixed;
+bottom: 0;
+width: 100%;
+animation: ani1 3s linear 2s infinite alternate;
+}
+
+@keyframes ani1 {
+from {border-top: 1px solid silver;}
+to {border-top: 1px solid red;}
+}
+
+nav ul li {
+border-right: 1px solid silver;
+display: inline-block;
+padding: 5px;
+}
+
+nav ul li:last-child {
+border-right: none;
+float: right;
+}
+
+nav ul li a {
+font-size: 1.2em;
+/*padding: 8px;*/
+text-decoration: none;
+color: white !important;
+transition: all 0.5s;
+}
+
+nav ul li a:hover {
+  color: orange !important;
+}
+
+
+@media all and (max-width: 600px) {
+nav ul li a {
+font-size: 1em;
+padding: 5px;
+}
+
+nav ul li:nth-child(4) {
+  display: none;
+}
+
+p {
+font-size: 1em;
+}
+}

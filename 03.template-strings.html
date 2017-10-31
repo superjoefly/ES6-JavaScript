@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Template Strings</title>
+    <link rel="stylesheet" href="css/prism.css" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+
+    <h1>Template Strings</h1>
+
+    <h2>Template Literals</h2>
+
+    <p>Template literals are string literals that allow embedded expressions. We can use multi-line strings and string-interpolation featrures with them. Template literals are enclosed by back-ticks (` `) instead of double quotes. Template literals can contain placeholders which are indicated by the dollar-sign and curly braces ( ${expression} ):</p>
+
+    <script>
+      function dateMessage() {
+        const year = new Date().getFullYear();
+
+        // Using the variable:
+        return `The year is ${year}`;
+
+        // Using the expression itself:
+        // return `The year is ${new Date().getFullYear()}`;
+      }
+
+      console.log(dateMessage());
+    </script>
+
+    <pre><code class="language-javascript">
+      function dateMessage() {
+        const year = new Date().getFullYear();
+
+        // Using the variable:
+        return `The year is ${year}`;
+
+        // Using the expression itself:
+        // return `The year is ${new Date().getFullYear()}`;
+      }
+
+      console.log(dateMessage());
+    </code></pre>
+
+    <h2>Readability</h2>
+
+    <p>Using template literals can make code more readable:</p>
+
+    <script>
+      const device_id = 3;
+      const guid = 20;
+      const username = 'James';
+
+      const data = '{"device_id: " + device_id + "guid " + guid + "username " + username}';
+
+      console.log(data);
+
+      // Refactored with template literals:
+      const myData = `{
+        "device_id " ${device_id},
+        "guid" ${guid},
+        "username " ${username}
+      }`;
+
+      console.log(myData);
+    </script>
+
+    <pre><code class="language-javascript">
+      const device_id = 3;
+      const guid = 20;
+      const username = 'James';
+
+      const data = '{"device_id: " + device_id + "guid " + guid + "username " + username}';
+
+      console.log(data);
+
+      // Refactored with template literals:
+      const myData = `{
+        "device_id " ${device_id},
+        "guid" ${guid},
+        "username " ${username}
+      }`;
+
+      console.log(myData);
+    </code></pre>
+
+    <p>Note: variables by themselves don't need a template string:</p>
+
+    <script>
+      const year = 2017;
+
+      let yearMessage = `The year is ${year}`;
+      console.log(yearMessage); // => The year is 2017
+
+      yearMessage = year; // variable by itself
+      console.log(yearMessage); // 2017
+    </script>
+
+    <pre><code class="language-javascript">
+      const year = 2017;
+
+      let yearMessage = `The year is ${year}`;
+      console.log(yearMessage); // => The year is 2017
+
+      yearMessage = year; // variable by itself
+      console.log(yearMessage); // 2017
+    </code></pre>
+
+    <h2>Refactoring</h2>
+
+    <p>We can refactor the following function using template literals:</p>
+
+    <script>
+      // Non-refactored
+      function doubleNumber(number) {
+        return 'Your number doubled is ' + (2 * number);
+      }
+
+      // Refactored using template literals:
+      function doubleNumber(number) {
+        return `Your number doubled is ${2 * number}`;
+      }
+
+      console.log(doubleNumber(2)); // => Your number doubled is 4
+    </script>
+
+    <pre><code class="language-javascript">
+      // Non-refactored
+      function doubleNumber(number) {
+        return 'Your number doubled is ' + (2 * number);
+      }
+
+      // Refactored using template literals:
+      function doubleNumber(number) {
+        return `Your number doubled is ${2 * number}`;
+      }
+
+      console.log(doubleNumber(2)); // => Your number doubled is 4
+    </code></pre>
+
+    <p>Another Refactoring Example:</p>
+
+    <script>
+      function fullName(firstName, lastName) {
+        console.log(firstName + ' ' + lastName);
+      }
+
+      // Refactored using template literals:
+      function fullName(firstName, lastName) {
+        console.log(`${firstName + ' ' + lastName}`);
+      }
+
+      fullName('John', 'Doe'); // => John Doe
+    </script>
+
+    <pre><code class="language-javascript">
+      function fullName(firstName, lastName) {
+        console.log(firstName + ' ' + lastName);
+      }
+
+      // Refactored using template literals:
+      function fullName(firstName, lastName) {
+        console.log(`${firstName + ' ' + lastName}`);
+      }
+
+      fullName('John', 'Doe'); // => John Doe
+    </code></pre>
+
+    <button class="w3-button w3-block w3-teal w3-margin-bottom" onClick="goBack()">Back</button>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+    <script src="scripts/prism.js"></script>
+
+  </body>
+</html>

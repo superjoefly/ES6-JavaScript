@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Promise and Fetch</title>
+    <link rel="stylesheet" href="css/prism.css" />
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+  </head>
+  <body>
+
+    <h1>Promise and Fetch</h1>
+
+    <h2>Promises</h2>
+
+    <p>A 'promise' pauses execution of code until we receive the requested data. There are three states of a promise:</p>
+
+    <ol>
+      <li>unresolved: waiting for something to finish (default)</li>
+      <li>resolved: something finished successfully</li>
+      <li>rejected: something finished, but there was an error</li>
+    </ol>
+
+    <p>Callbacks: (then and catch): properties that sit on top of the promise object:</p>
+
+    <ol>
+      <li>resolved -> then</li>
+      <li>rejected -> catch</li>
+    </ol>
+
+    <h2>Creating a Promise</h2>
+
+    <p>We can change the state of a promise to resolved or rejected by passing and calling the resolve() or reject() methods:</p>
+
+    <script>
+      promise1 = new Promise((resolve, reject) => {
+        resolve(); // => resolve the promise
+      });
+
+      console.log(promise1);
+      // => Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: undefined}
+
+      promise2 = new Promise((resolve, reject) => {
+        reject(); // => reject the promise
+
+        // rejecting without catching produces the following error:
+        // Uncaught (in promise)
+      });
+
+      console.log(promise2);
+      // => Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: undefined}
+    </script>
+
+    <pre><code class="language-javascript">
+      promise1 = new Promise((resolve, reject) => {
+        resolve(); // => resolve the promise
+      });
+
+      console.log(promise1);
+      // => Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: undefined}
+
+      promise2 = new Promise((resolve, reject) => {
+        reject(); // => reject the promise
+
+        // rejecting without catching produces the following error:
+        // Uncaught (in promise)
+      });
+
+      console.log(promise2);
+      // => Promise {[[PromiseStatus]]: "rejected", [[PromiseValue]]: undefined}
+    </code></pre>
+
+    <h2>Then and Catch</h2>
+
+    <script>
+      // Resolve => then
+      promise3 = new Promise((resolve, reject) => {
+        resolve(); // => resolve the promise
+      });
+
+      promise3
+        .then(() => console.log("Finished!"))
+        // Chain 'then' statements
+        .then(() => console.log("I execute also!"));
+
+      // Reject => catch
+
+      promise4 = new Promise((resolve, reject) => {
+        reject();
+      });
+
+      promise4
+        .catch(() => console.log("Transfer Failed!"))
+        .then(() => console.log("Try another url?"));
+    </script>
+
+    <pre><code class="language-javascript">
+      // Resolve => then
+      promise3 = new Promise((resolve, reject) => {
+        resolve(); // => resolve the promise
+      });
+
+      promise3
+        .then(() => console.log("Finished!"))
+        // Chain 'then' statements
+        .then(() => console.log("I execute also!"));
+
+      // Reject => catch
+
+      promise4 = new Promise((resolve, reject) => {
+        reject();
+      });
+
+      promise4
+        .catch(() => console.log("Transfer Failed!"))
+        .then(() => console.log("Try another url?"));
+    </code></pre>
+
+    <h2>Async Code with Promises</h2>
+
+    <p>We can use a setTimout function to delay the response and test async code:</p>
+
+    <script>
+    promise5 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // reject();
+        resolve();
+        console.log(promise5);
+      }, 3000);
+    });
+
+    promise5
+      .then(() => console.log('Finally Finished!'))
+      .then(() => console.log('I also ran!!!'))
+      .catch(() => console.log('Uh Oh...something went wrong :-('));
+
+    console.log(promise5); // => "pending"
+
+    // After 3 second timeout using reject():
+    // => Uh Oh...something went wrong :-(
+
+    // After 3 second timeout using resolve():
+    // => "resolved"
+    // => Finally Finished!
+    // => I also ran!
+    </script>
+
+    <pre><code class="language-javascript">
+      promise5 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          // reject();
+          resolve();
+          console.log(promise5);
+        }, 3000);
+      });
+
+      promise5
+        .then(() => console.log('Finally Finished!'))
+        .then(() => console.log('I also ran!!!'))
+        .catch(() => console.log('Uh Oh...something went wrong :-('));
+
+      console.log(promise5); // => "pending"
+
+      // After 3 second timeout using reject():
+      // => Uh Oh...something went wrong :-(
+
+      // After 3 second timeout using resolve():
+      // => "resolved"
+      // => Finally Finished!
+      // => I also ran!
+    </code></pre>
+
+    <h2>AJAX Request with Fetch</h2>
+
+    <p>The following example uses uses dummy data from jsonplaceholder.typicode:</p>
+
+    <script>
+      url = "https://jsonplaceholder.typicode.com/posts";
+
+      fetch(url)
+        // return a json response
+        .then(response => response.json())
+        // console.log the response data
+        .then(data => console.log(data));
+
+
+      // Caveat (using fetch will not catch)
+      fetch(url)
+        // return the response
+        .then(response => console.log(response.whatever)) // => undefined
+        .catch(error => console.log("Bad", error)); // => doesn't catch
+    </script>
+
+    <pre><code class="language-javascript">
+      url = "https://jsonplaceholder.typicode.com/posts";
+
+      fetch(url)
+        // return a json response
+        .then(response => response.json())
+        // console.log the response data
+        .then(data => console.log(data));
+
+
+      // Caveat (using fetch will not catch)
+      fetch(url)
+        // return the response
+        .then(response => console.log(response.whatever)) // => undefined
+        .catch(error => console.log("Bad", error)); // => doesn't catch
+    </code></pre>
+
+    <button class="w3-button w3-block w3-teal w3-margin-bottom" onClick="goBack()">Back</button>
+
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+
+  <script src="scripts/prism.js"></script>
+  </body>
+</html>
